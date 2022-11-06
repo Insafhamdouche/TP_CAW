@@ -1,0 +1,23 @@
+const { readdirSync, readFileSync, lstatSync } = require('fs');
+const path = require('path');
+const getDir = source => {
+  const results = readdirSync(source);
+  results.forEach(function (result) {
+    if (lstatSync(path.join(source, result))
+      .isFile()) {
+      if (readFileSync(path.join(source, result))
+        .includes('insaf') && path.extname(result)
+        .toLowerCase() === extension) {
+        console.log("Your string is is in file: ", result)
+      }
+    }
+    else if (lstatSync(path.join(source, result))
+      .isDirectory()) {
+      getDir(path.join(source, result));
+    }
+  });
+}
+const dir = process.cwd();
+const extension = '.txt'; 
+let argument = process.argv[2];
+getDir(dir);
