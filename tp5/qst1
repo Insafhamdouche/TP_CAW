@@ -1,0 +1,19 @@
+const fs = require("fs");
+function grep(pathFile, expression) {
+        if (pathFile) {
+            let File_ = fs.readFileSync(pathFile, "utf-8");
+            if (File_.search(expression) != -1) return true
+        }
+        return false 
+}
+function SearchFiles(rw, ...args) {
+    let expression_reguliere = new RegExp(rw, "i");
+    let FilesArray = [];
+    args.forEach((pathFile) => {
+      grep(pathFile, expression_reguliere) ? FilesArray.push(pathFile) : null
+    });
+    if (FilesArray.length == 0) return "None"
+    return FilesArray
+}
+
+console.log(SearchFiles("insaf", "./file1.txt", "./file2.txt" ,"./file3.txt","./file4.txt"));
